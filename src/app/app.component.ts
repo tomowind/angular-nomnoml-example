@@ -1,14 +1,33 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  AfterViewInit,
+  ViewChild,
+  ElementRef,
+  Renderer2
+} from '@angular/core';
 
 @Component({
   selector: 'app-root',
-  template: '<nomnoml [source]="source"></nomnoml>',
+  templateUrl: 'app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
-  source: string;
+export class AppComponent implements OnInit, AfterViewInit {
+  @ViewChild('box') inputBox: ElementRef;
 
-  ngOnInit() {
-    this.source = '[nomnoml] is -> [awesome]';
+  constructor(private renderer: Renderer2) {}
+
+  ngOnInit() {}
+
+  ngAfterViewInit(): void {
+    // Why setTimeout? See
+    // https://blog.angular-university.io/angular-debugging/
+    setTimeout(() => {
+      this.renderer.setProperty(
+        this.inputBox.nativeElement,
+        'value',
+        '[nomnoml] is -> [awesome]'
+      );
+    });
   }
 }
