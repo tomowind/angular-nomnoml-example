@@ -3,17 +3,20 @@ import {
   Input,
   OnInit,
   OnChanges,
-  SimpleChanges
+  SimpleChanges,
+  ViewChild,
+  ElementRef
 } from '@angular/core';
 import * as nomnoml from 'nomnoml';
 
 @Component({
   selector: 'nomnoml',
-  template: '<canvas id="target-canvas"></canvas>',
+  template: '<canvas #targetCanvas></canvas>',
   styleUrls: ['./nomnoml.component.css']
 })
 export class NomnomlComponent implements OnInit, OnChanges {
   @Input('source') source;
+  @ViewChild('targetCanvas') targetCanvas: ElementRef;
 
   ngOnInit() {}
 
@@ -24,8 +27,7 @@ export class NomnomlComponent implements OnInit, OnChanges {
 
   draw(src: string): void {
     if (src) {
-      const targetCanvas = document.getElementById('target-canvas');
-      nomnoml.draw(targetCanvas, src);
+      nomnoml.draw(this.targetCanvas.nativeElement, src);
     }
   }
 }
