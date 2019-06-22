@@ -1,5 +1,5 @@
-<input #box (keyup)="(0)" style="width: 500px; height: 200px;" />
+<textarea [(ngModel)]="source" style="width: 500px; height: 200px;"></textarea>
 
 <p></p>
 
-<nomnoml [source]="box.value"></nomnoml>
+<nomnoml [source]="source"></nomnoml>
