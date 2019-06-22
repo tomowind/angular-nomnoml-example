@@ -12,7 +12,7 @@ import * as nomnoml from 'nomnoml';
 @Component({
   selector: 'nomnoml',
   template: '<canvas #targetCanvas></canvas>',
-  styleUrls: ['./nomnoml.component.css']
+  styleUrls: []
 })
 export class NomnomlComponent implements OnInit, OnChanges {
   @Input('source') source;
