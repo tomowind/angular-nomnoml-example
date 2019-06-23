@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { FormControl } from '@angular/forms';
+
+import * as nomnoml from 'nomnoml';
 
 @Component({
   selector: 'app-root',
@@ -6,11 +9,25 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  source: string;
+  @ViewChild('targetCanvas') targetCanvas: ElementRef;
 
-  constructor() {
-    this.source = '[nomnoml] ls -> [awesome]';
+  inputCtrl = new FormControl('');
+
+  constructor() {}
+
+  ngOnInit() {
+    // draw initially
+    const source1 = Array(20)
+      .fill(1)
+      .map((x, y) => x + y)
+      .map(i => `[nomnoml${i}] ls -> [awesome${i}]`)
+      .join('\n');
+    this.inputCtrl.setValue(source1);
+    nomnoml.draw(this.targetCanvas.nativeElement, source1);
+
+    // subscribe future changes
+    this.inputCtrl.valueChanges.subscribe(source => {
+      nomnoml.draw(this.targetCanvas.nativeElement, source);
+    });
   }
-
-  ngOnInit() {}
 }

@@ -1,5 +1,5 @@
-<textarea [(ngModel)]="source" style="width: 500px; height: 200px;"></textarea>
+<textarea [formControl]="inputCtrl" style="width: 500px; height: 200px;"></textarea>
 
 <p></p>
 
-<nomnoml [source]="source"></nomnoml>
+<canvas #targetCanvas> </canvas>
